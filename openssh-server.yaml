@@ -1,0 +1,63 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: openssh-server
+  labels:
+    app: openssh-server
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: openssh-server
+  template:
+    metadata:
+      labels:
+        app: openssh-server
+    spec:
+      containers:
+      - name: openssh-server
+        image: lscr.io/linuxserver/openssh-server:latest
+        ports:
+        - containerPort: 2222
+        env:
+        - name: PUID
+          value: "568"
+        - name: PGID
+          value: "568"
+        - name: TZ
+          value: "America/Montreal"
+        - name: SUDO_ACCESS
+          value: "true"
+        - name: PASSWORD_ACCESS
+          value: "true"
+        - name: USER_PASSWORD
+          value: "apps"
+        - name: USER_NAME
+          value: "apps"
+        volumeMounts:
+        - name: config
+          mountPath: /config
+        - name: ${pvc}
+          mountPath: /config/mounted-pvc
+      volumes:
+      - name: config
+        emptyDir: {}
+      - name: ${pvc}
+        persistentVolumeClaim:
+          claimName: ${pvc}
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: openssh-service
+  labels:
+    app: openssh-server
+spec:
+  type: NodePort
+  selector:
+    app: openssh-server
+  ports:
+  - protocol: TCP
+    port: 2222
+    targetPort: 2222
