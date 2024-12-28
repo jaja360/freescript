@@ -1,14 +1,13 @@
-[2024-12-27 22:12:31] [*] Starting script execution
-[2024-12-27 22:12:31] [*] Session file: /mnt/c/Users/Freeman/kubepvc/session.json
-[2024-12-27 22:12:31] [*] Log file: freescript.log
-[2024-12-27 22:12:31] [*] Starting port: 2022
-[2024-12-27 22:12:31] [*] Starting health check
-[2024-12-27 22:12:31] [*] jq is already installed. Version: jq-1.7
-[2024-12-27 22:12:31] [*] Health check completed
-[2024-12-27 22:12:31] [*] Scanning for modules in ./modules/ directory...
-[2024-12-27 22:12:31] [*] Found module 'pvc' with entry point 'pvc_entry_point'
-[2024-12-27 22:12:31] [*] Found module 'dns' with entry point 'dns_entry_point'
-[2024-12-27 22:12:31] [*] Found module 'shell' with entry point 'shell_entry_point'
-[2024-12-27 22:12:31] [*] Found module 'logs' with entry point 'logs_entry_point'
-[2024-12-27 22:12:31] [*] 4 modules discovered successfully
-[2024-12-27 22:12:32] [*] Exiting script
+[2024-12-27 22:33:38] [*] Starting script execution
+[2024-12-27 22:33:38] [*] Session file: /mnt/c/Users/Freeman/freescript/session.json
+[2024-12-27 22:33:38] [*] Log file: freescript.log
+[2024-12-27 22:33:38] [*] Starting port: 2022
+[2024-12-27 22:33:38] [*] Starting health check
+[2024-12-27 22:33:38] [*] jq is already installed. Version: jq-1.7
+[2024-12-27 22:33:38] [*] Health check completed
+[2024-12-27 22:33:38] [*] Scanning for modules in ./modules/ directory...
+[2024-12-27 22:33:38] [*] Found module 'pvc' with entry point 'pvc_entry_point'
+[2024-12-27 22:33:38] [*] Found module 'dns' with entry point 'dns_entry_point'
+[2024-12-27 22:33:38] [*] Found module 'shell' with entry point 'shell_entry_point'
+[2024-12-27 22:33:38] [*] Found module 'logs' with entry point 'logs_entry_point'
+[2024-12-27 22:33:38] [*] 4 modules discovered successfully

@@ -18,8 +18,8 @@ NC='\033[0m'
 # Header template
 clear_terminal() {
     clear
-echo -e "${DARK_GRAY}   ###                                             ${WHITE}##            ##   ${NC}"
-echo -e "${DARK_GRAY}  ##                          ${WHITE}###                 ##            ##   ${NC}"
+echo -e "${DARK_GRAY}   ###                                             ${WHITE}##                 ${NC}"
+echo -e "${DARK_GRAY}  ##                          ${WHITE}###                 ##             ##   ${NC}"
 echo -e "${DARK_GRAY}  ##                         ${WHITE}## ##                               ##   ${NC}"
 echo -e "${DARK_GRAY} ####   # ###   ###    ###   ${WHITE}##      ####  # ###  ###    ####   ####  ${NC}"
 echo -e "${DARK_GRAY}  ##    ###    ## ##  ## ##  ${WHITE} ###   ##     ###     ##    ## ##   ##   ${NC}"
