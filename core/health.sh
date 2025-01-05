@@ -11,10 +11,10 @@ healthcheck_jq() {
 
     log_info "jq is not installed. Proceeding with installation..." 'console'
 
-    if command -v apt-get >/dev/null 2>&1; then
+    if command -v apt >/dev/null 2>&1; then
         log_info "Using APT to install jq..." 'console'
-        sudo apt-get update >> "$LOG_FILE" 2>&1
-        sudo apt-get install -y jq >> "$LOG_FILE" 2>&1
+        sudo apt update >> "$LOG_FILE" 2>&1
+        sudo apt install -y jq >> "$LOG_FILE" 2>&1
     elif command -v yum >/dev/null 2>&1; then
         log_info "Using YUM to install jq..." 'console'
         sudo yum install -y epel-release >> "$LOG_FILE" 2>&1
