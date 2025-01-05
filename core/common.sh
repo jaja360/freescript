@@ -31,39 +31,31 @@ echo -e "${DARK_GRAY}                                                         ${
 echo
 }
 
-# Logging template
-log_info() {
+log_worker() {
     local timestamp=$(date +"%Y-%m-%d %H:%M:%S")
     local message="[*] $1"
     if [[ "$2" == 'console' ]]; then
-        echo -e "${DARK_GRAY}$message${NC}"
+        if [[ "$3" == 'info' ]]; then
+            echo -e "${DARK_GRAY}$message${NC}"
+        elif [[ "$3" == 'warning' ]]; then
+            echo -e "\\e[33m$message\\e[0m"
+        elif [[ "$3" == 'error' ]]; then
+            echo -e "\\e[31m$message\\e[0m"
+        fi
     fi
     echo "[$timestamp] $message" >> "$LOG_FILE"
 }
+
+log_info() {
+    log_worker "$1" "$2" "info"
+}
+
 log_warning() {
-    local timestamp=$(date +"%Y-%m-%d %H:%M:%S")
-    local message="[!] $1"
-    if [[ "$2" == 'console' ]]; then
-        echo -e "\\e[33m$message\\e[0m"
-    fi
-    echo "[$timestamp] $message" >> "$LOG_FILE"
+    log_worker "$1" "$2" "warning"
 }
+
 log_error() {
-    local timestamp=$(date +"%Y-%m-%d %H:%M:%S")
-    local message="[X] $1"
-    if [[ "$2" == 'console' ]]; then
-        echo -e "\\e[31m$message\\e[0m"
-    fi
-    echo "[$timestamp] $message" >> "$LOG_FILE"
-}
-
-
-log_temp() {
-    local timestamp=$(date +"%Y-%m-%d %H:%M:%S")
-    local message="$1"
-    local target="$2"
-
-    echo -e "[INFO] $message"
+    log_worker "$1" "$2" "error"
 }
 
 # Text effect
