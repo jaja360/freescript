@@ -1,5 +1,3 @@
-#!/bin/bash
-
 MODULE_NAME="pvc"
 MODULE_DISPLAY="Manage PVC Storage"
 MODULE_ENTRY_POINT="pvc_entry_point"

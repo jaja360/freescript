@@ -1,5 +1,3 @@
-#!/bin/bash
-
 # Function to list PVCs and select one
 select_pvc() {
     echo

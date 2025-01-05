@@ -1,6 +1,3 @@
-#!/bin/bash
-
-# Fonction pour démarrer le port forwarding
 start_port_forward() {
     if [[ -z "$namespace" || -z "$pod" || -z "$port" ]]; then
         log_error "Variables namespace, pod, and port must be defined before calling start_port_forward" 'console'

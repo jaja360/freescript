@@ -1,5 +1,3 @@
-#!/bin/bash
-
 trap "clear" EXIT
 
 SESSION_FILE=$(realpath "./session.json")

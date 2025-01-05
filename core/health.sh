@@ -1,5 +1,3 @@
-#!/bin/bash
-
 # Function to check and install jq
 healthcheck_jq() {
     if command -v jq >/dev/null 2>&1; then

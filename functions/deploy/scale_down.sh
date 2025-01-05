@@ -1,5 +1,3 @@
-#!/bin/bash
-
 scale_down() {
     log_info "Scaling down '$deployment' in namespace '$namespace' to 0 replicas" 'console'
     if ! kubectl scale deployment "$deployment" -n "$namespace" --replicas=0 &>/dev/null; then

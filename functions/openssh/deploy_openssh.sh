@@ -1,6 +1,3 @@
-#!/bin/bash
-
-# Déploiement de openssh-server
 deploy_openssh() {
     log_info "Deploying openssh-server using $pvc.yaml in namespace: $namespace"
 

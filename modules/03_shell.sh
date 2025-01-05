@@ -1,5 +1,3 @@
-#!/bin/bash
-
 MODULE_NAME="shell"
 MODULE_DISPLAY="Open Container Shell"
 MODULE_ENTRY_POINT="shell_entry_point"

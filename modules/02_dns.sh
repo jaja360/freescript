@@ -1,5 +1,3 @@
-#!/bin/bash
-
 MODULE_NAME="dns"
 MODULE_DISPLAY="List DNS Names"
 MODULE_ENTRY_POINT="dns_entry_point"

@@ -1,6 +1,3 @@
-#!/bin/bash
-
-# Montre les DNS pour un namespace
 show_dns() {
     if [[ -z "$namespace" ]]; then
         clear_terminal

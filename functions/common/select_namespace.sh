@@ -1,5 +1,3 @@
-#!/bin/bash
-
 # Function to list namespaces and select one
 select_namespace() {
     echo

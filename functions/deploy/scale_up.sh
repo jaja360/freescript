@@ -1,5 +1,3 @@
-#!/bin/bash
-
 scale_up() {
     if [[ -z "$namespace" || -z "$pvc" ]]; then
         log_error "scale_up: Namespace or PVC not specified. Aborting replica restoration." 'console'

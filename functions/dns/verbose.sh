@@ -1,5 +1,3 @@
-#!/bin/bash
-
 verbose() {
     echo
     log_info "Entered DNS verbose function with chart names: ${*:-none}"

@@ -1,5 +1,3 @@
-#!/bin/bash
-
 MODULE_NAME="dbinfo"
 MODULE_DISPLAY="Show information about all CNPG databases"
 MODULE_ENTRY_POINT="show_db_info"

@@ -1,5 +1,3 @@
-#!/bin/bash
-
 source ./functions/session/initialize_json.sh
 source ./functions/session/validate_json.sh
 

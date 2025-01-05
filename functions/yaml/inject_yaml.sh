@@ -1,5 +1,3 @@
-#!/bin/bash
-
 # Inject variables into the YAML file before deployment
 inject_yaml() {
     if [[ ! -f "openssh-server.yaml" ]]; then

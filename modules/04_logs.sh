@@ -1,5 +1,3 @@
-#!/bin/bash
-
 MODULE_NAME="logs"
 MODULE_DISPLAY="Show Container Logs"
 MODULE_ENTRY_POINT="logs_entry_point"

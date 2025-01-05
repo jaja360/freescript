@@ -1,5 +1,3 @@
-#!/bin/bash
-
 # Fonction pour valider le JSON
 validate_json() {
     local json_data="$1"

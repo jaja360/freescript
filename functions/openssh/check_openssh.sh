@@ -1,5 +1,3 @@
-#!/bin/bash
-
 # Fonction pour vérifier si un pod openssh-server-* existe dans le namespace
 check_openssh() {
     pod=$(kubectl get pods -n "$namespace" -o jsonpath='{.items[*].metadata.name}' | grep -E '^openssh-server-')

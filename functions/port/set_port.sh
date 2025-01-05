@@ -1,5 +1,3 @@
-#!/bin/bash
-
 # Fonction pour obtenir le prochain port disponible
 set_port() {
     log_info "Fetching next available port"

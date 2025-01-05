@@ -1,5 +1,3 @@
-#!/bin/bash
-
 delete_openssh() {
     if [[ -z "$namespace" ]]; then
         log_error "remove_openssh: Namespace not specified. Aborting removal." 'console'

@@ -1,5 +1,3 @@
-#!/bin/bash
-
 source ./functions/deploy/find_deployment.sh
 source ./functions/deploy/scale_down.sh
 source ./functions/openssh/check_openssh.sh

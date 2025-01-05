@@ -1,5 +1,3 @@
-#!/bin/bash
-
 source ./functions/pvc/unmount_pvc.sh
 
 unmount_single() {

@@ -1,5 +1,3 @@
-#!/bin/bash
-
 remove_yaml() {
     if [[ -z "$pvc" ]]; then
         log_error "remove_yaml: PVC variable is not set. Aborting deletion." 'console'

@@ -1,5 +1,3 @@
-#!/bin/bash
-
 # Function to select a pod in a given namespace
 select_pod() {
     echo

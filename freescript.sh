@@ -57,16 +57,14 @@ run_module() {
 }
 
 generate_menu() {
-    echo -e "${GREEN}Main Menu${NC}"
-    echo
+    echo -e "${GREEN}Main Menu${NC}\n"
     local i=1
     for module_name in "${!MODULES_FILES[@]}"; do
         echo "$i) ${MODULES_DISPLAYS["$module_name"]}"
         menu_mapping["$i"]="$module_name"
         ((i++))
     done
-    echo "$i) Exit"
-    echo
+    echo -e "$i) Exit\n"
 }
 
 handle_selection() {

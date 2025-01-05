@@ -1,6 +1,3 @@
-#!/bin/bash
-
-# Fonction pour arrêter le port forwarding
 stop_port_forward() {
     if [[ -z "$port" ]]; then
         log_error "Variable 'port' must be defined before calling stop_port_forward" 'console'

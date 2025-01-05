@@ -1,5 +1,3 @@
-#!/bin/bash
-
 open_logs() {
     # Ensure that 'namespace' and 'pod' variables are set before calling this function
     if [[ -z "$namespace" || -z "$pod" ]]; then

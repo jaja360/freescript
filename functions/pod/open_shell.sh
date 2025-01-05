@@ -1,5 +1,3 @@
-#!/bin/bash
-
 open_shell() {
     clear_terminal
     echo -e "${GREEN}Container Shell > ${namespace} > ${pod}${NC}\n"
