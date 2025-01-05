@@ -147,46 +147,53 @@ pvc_entry_point() {
 
         # Lecture des touches
         read -rsn1 key
-        case "$key" in
-            $'\x1b') # Touche Échappement pour les flèches
-                read -rsn2 -t 0.1 key
-                case "$key" in
-                    "[A") # Flèche haut
-                        if [[ $current_index -gt 0 ]]; then
-                            current_index=$((current_index - 1))
+
+        # Si on détecte la touche Échappement, on lit les deux caractères suivants (p. ex. "[A" ou "[B")
+        if [[ "$key" == $'\x1b' ]]; then
+            read -rsn2 -t 0.1 key2
+            combined_key="$key$key2"
+        else
+            combined_key="$key"
+        fi
+
+        case "$combined_key" in
+            $'\x1b[A'|k) # Flèche haut (Esc [A) OU 'k'
+            if [[ $current_index -gt 0 ]]; then
+                current_index=$((current_index - 1))
+            fi
+            ;;
+
+            $'\x1b[B'|j) # Flèche bas (Esc [B) OU 'j'
+            if [[ $current_index -lt $((total_count - 1)) ]]; then
+                current_index=$((current_index + 1))
+            fi
+            ;;
+
+            "") # Touche Entrée
+            if [[ $current_index -lt $pvc_count ]]; then
+                pvc="${pvc_map[$current_index]}" # Capture le PVC sélectionné
+                unmount_single "$pvc"
+            else
+                case $((current_index - pvc_count)) in
+                    0) # Mount PVC
+                        clear_terminal
+                        echo -e "${GREEN}Mount PVC Storage > Select Namespace${NC}"
+                        select_namespace
+                        if [[ -n "$namespace" ]]; then
+                            mount_pvc
                         fi
                         ;;
-                    "[B") # Flèche bas
-                        if [[ $current_index -lt $((total_count - 1)) ]]; then
-                            current_index=$((current_index + 1))
-                        fi
+                    1) # Exit
+                        return
                         ;;
                 esac
-                ;;
-            "") # Touche Entrée
-                if [[ $current_index -lt $pvc_count ]]; then
-                    pvc="${pvc_map[$current_index]}" # Capture le PVC sélectionné
-                    unmount_single "$pvc"
-                else
-                    case $((current_index - pvc_count)) in
-                        0) # Mount PVC
-                            clear_terminal
-                            echo -e "${GREEN}Mount PVC Storage > Select Namespace${NC}"
-                            select_namespace
-                            if [[ -n "$namespace" ]]; then
-                                mount_pvc
-                            fi
-                            ;;
-                        1) # Exit
-                            return
-                            ;;
-                    esac
-                fi
-                ;;
+            fi
+            ;;
+
             *)
-                log_warning "Invalid option" 'console'
-                sleep 1
-                ;;
+            log_warning "Invalid option" 'console'
+            sleep 1
+            ;;
         esac
     done
 }
