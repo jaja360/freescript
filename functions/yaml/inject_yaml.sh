@@ -8,7 +8,6 @@ inject_yaml() {
     fi
 
     sed "s|\${namespace}|$namespace|g; s|\${pvc}|$pvc|g" "openssh-server.yaml" > "$pvc.yaml"
-
     if [[ $? -eq 0 ]]; then
         log_info "Injected variable PVC '$pvc' into '$pvc.yaml'" 'console'
     else

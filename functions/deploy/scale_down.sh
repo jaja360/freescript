@@ -8,10 +8,8 @@ scale_down() {
     fi
 
     while true; do
-        local replicas
-        local available
-        replicas=$(kubectl get deployment "$deployment" -n "$namespace" -o jsonpath='{.status.replicas}' 2>/dev/null || echo "")
-        available=$(kubectl get deployment "$deployment" -n "$namespace" -o jsonpath='{.status.availableReplicas}' 2>/dev/null || echo "")
+        local replicas=$(kubectl get deployment "$deployment" -n "$namespace" -o jsonpath='{.status.replicas}' 2>/dev/null || echo "")
+        local available=$(kubectl get deployment "$deployment" -n "$namespace" -o jsonpath='{.status.availableReplicas}' 2>/dev/null || echo "")
         replicas=${replicas:-0}
         available=${available:-0}
 

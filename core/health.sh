@@ -3,8 +3,7 @@
 # Function to check and install jq
 healthcheck_jq() {
     if command -v jq >/dev/null 2>&1; then
-        local jq_version
-        jq_version=$(jq --version)
+        local jq_version=$(jq --version)
         log_info "jq is already installed. Version: $jq_version"
         return 0
     fi
@@ -37,8 +36,7 @@ healthcheck_jq() {
     fi
 
     if command -v jq >/dev/null 2>&1; then
-        local jq_version
-        jq_version=$(jq --version)
+        local jq_version=$(jq --version)
         log_info "jq installed successfully. Version: $jq_version" 'console'
         sleep 2
         return 0

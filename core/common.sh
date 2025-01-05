@@ -18,17 +18,16 @@ NC='\033[0m'
 # Header template
 clear_terminal() {
     clear
-echo -e "${DARK_GRAY}   ###                                             ${WHITE}##                 ${NC}"
-echo -e "${DARK_GRAY}  ##                          ${WHITE}###                 ##             ##   ${NC}"
-echo -e "${DARK_GRAY}  ##                         ${WHITE}## ##                               ##   ${NC}"
-echo -e "${DARK_GRAY} ####   # ###   ###    ###   ${WHITE}##      ####  # ###  ###    ####   ####  ${NC}"
-echo -e "${DARK_GRAY}  ##    ###    ## ##  ## ##  ${WHITE} ###   ##     ###     ##    ## ##   ##   ${NC}"
-echo -e "${DARK_GRAY}  ##    ##     #####  #####  ${WHITE}   ##  ##     ##      ##    ## ##   ##   ${NC}"
-echo -e "${DARK_GRAY}  ##    ##     ##     ##     ${WHITE}## ##  ##     ##      ##    ## ##   ##   ${NC}"
-echo -e "${DARK_GRAY}  ##    ##      ###    ###   ${WHITE} ###    ####  ##     ####   ####     ##  ${NC}"
-echo -e "${DARK_GRAY}  #                                                      ${WHITE}##           ${NC}"
-echo -e "${DARK_GRAY}                                                         ${WHITE}##           ${NC}"
-echo
+    echo -e "${DARK_GRAY}   ###                                             ${WHITE}##                 ${NC}"
+    echo -e "${DARK_GRAY}  ##                         ${WHITE} ###                 ##             ##   ${NC}"
+    echo -e "${DARK_GRAY}  ##                         ${WHITE}## ##                               ##   ${NC}"
+    echo -e "${DARK_GRAY} ####   # ###   ###    ###   ${WHITE}##      ####  # ###  ###    ####   ####  ${NC}"
+    echo -e "${DARK_GRAY}  ##    ###    ## ##  ## ##  ${WHITE} ###   ##     ###     ##    ## ##   ##   ${NC}"
+    echo -e "${DARK_GRAY}  ##    ##     #####  #####  ${WHITE}   ##  ##     ##      ##    ## ##   ##   ${NC}"
+    echo -e "${DARK_GRAY}  ##    ##     ##     ##     ${WHITE}## ##  ##     ##      ##    ## ##   ##   ${NC}"
+    echo -e "${DARK_GRAY}  ##    ##      ###    ###   ${WHITE} ###    ####  ##     ####   ####     ##  ${NC}"
+    echo -e "${DARK_GRAY}  #                                                      ${WHITE}##           ${NC}"
+    echo -e "${DARK_GRAY}                                                         ${WHITE}##           ${NC}\n"
 }
 
 log_worker() {
@@ -60,19 +59,18 @@ log_error() {
 
 # Text effect
 focus() {
-  local text="$1"
-  for ((i=0; i<${#text}; i++)); do
-    echo -n "${text:$i:1}"
-    sleep 0.01
-  done
-  echo
+    local text="$1"
+    for ((i = 0; i < ${#text}; i++)); do
+        echo -n "${text:$i:1}"
+        sleep 0.01
+    done
+    echo
 }
 
 focus_alt() {
     local message="[*] $1"
     local target="$2"
-    echo -e "${DARK_GRAY}$message${NC}"
-    echo
+    echo -e "${DARK_GRAY}$message${NC}\n"
     sleep 1
     tput cuu1
     tput el

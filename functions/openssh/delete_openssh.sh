@@ -19,8 +19,7 @@ delete_openssh() {
     # Attendre la suppression du pod OpenSSH
     log_info "Ensuring OpenSSH pod is deleted in namespace: '$namespace'" 'console'
     while true; do
-        local pod_exists
-        pod_exists=$(kubectl get pods -n "$namespace" --selector="app=openssh-server" --no-headers 2>/dev/null | wc -l)
+        local pod_exists=$(kubectl get pods -n "$namespace" --selector="app=openssh-server" --no-headers 2>/dev/null | wc -l)
         if [[ "$pod_exists" -eq 0 ]]; then
             log_info "OpenSSH pod deleted in namespace: '$namespace'" 'console'
             break

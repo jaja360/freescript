@@ -29,7 +29,7 @@ shell_entry_point() {
     if [[ -z "$pod" ]]; then
         return
     fi
-    
+
     open_shell
 }
 

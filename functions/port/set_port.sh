@@ -11,7 +11,6 @@ set_port() {
     fi
 
     port=$BASE_PORT
-
     while echo "$current_ports" | grep -wq "$port"; do
         log_info "Port $port is already in use. Checking next available port..." 'console'
         ((port++))

@@ -9,9 +9,7 @@ stop_port_forward() {
 
     log_info "Stopping port forwarding for local port $port"
 
-    local pid
-    pid=$(lsof -t -i:"$port")
-
+    local pid=$(lsof -t -i:"$port")
     if [[ -n "$pid" ]]; then
         kill "$pid" 2>/dev/null
         if [[ $? -eq 0 ]]; then

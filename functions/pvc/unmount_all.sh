@@ -12,8 +12,7 @@ unmount_all() {
 
         if [[ -n "$pvc" && -n "$namespace" ]]; then
             clear_terminal
-            echo -e "${GREEN}Unmount PVC Storage > ${namespace} > ${pvc}${NC}"
-            echo
+            echo -e "${GREEN}Unmount PVC Storage > ${namespace} > ${pvc}${NC}\n"
             if unmount_pvc; then
                 unmounted_list+=("[${namespace}] ${pvc}")
             else
@@ -25,8 +24,7 @@ unmount_all() {
     done
 
     clear_terminal
-    echo -e "${GREEN}Unmount PVC Storage > Unmount All${NC}"
-    echo
+    echo -e "${GREEN}Unmount PVC Storage > Unmount All${NC}\n"
     if [[ ${#unmounted_list[@]} -gt 0 ]]; then
         log_info "The following PVCs were successfully unmounted:"
         for pvc_entry in "${unmounted_list[@]}"; do
@@ -36,9 +34,7 @@ unmount_all() {
         log_error "No PVCs were successfully unmounted"
     fi
 
-    echo
-    echo -e "${GREEN}All PVCs have been processed${NC}"
-    echo
+    echo -e "\n${GREEN}All PVCs have been processed${NC}\n"
     focus "Press any key to continue..."
     read -n 1 -s
 }

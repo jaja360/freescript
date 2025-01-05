@@ -14,8 +14,7 @@ select_pod() {
     fi
 
     # Compter le nombre de lignes (pods)
-    local count
-    count=$(echo "$pods" | wc -l)
+    local count=$(echo "$pods" | wc -l)
 
     # Si on n'a qu'un seul pod, on le sélectionne directement
     if [[ "$count" -eq 1 ]]; then

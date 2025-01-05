@@ -46,11 +46,8 @@ pvc_entry_point() {
                 load_mounted_pvcs
 
                 # Récupérer les PVCs montés dans ce namespace
-                local pvc_entries
-                pvc_entries=$(echo "$MOUNTED_PVCS" | jq "[.[] | select(.namespace==\"$namespace\")]")
-                local pvc_count
-                pvc_count=$(echo "$pvc_entries" | jq length)
-
+                local pvc_entries=$(echo "$MOUNTED_PVCS" | jq "[.[] | select(.namespace==\"$namespace\")]")
+                local pvc_count=$(echo "$pvc_entries" | jq length)
                 if [[ "$pvc_count" -eq 0 ]]; then
                     log_warning "No PVCs found in namespace '$namespace'" 'console'
                     sleep 2
@@ -74,8 +71,7 @@ pvc_entry_point() {
                 ;;
             *)
                 log_warning "Unknown option: $option" 'console'
-                echo
-                echo "Usage: freescript.sh pvc [-m [namespace]] | [-u [namespace]]"
+                echo -e "\nUsage: freescript.sh pvc [-m [namespace]] | [-u [namespace]]"
                 sleep 5
                 return
                 ;;
@@ -158,42 +154,42 @@ pvc_entry_point() {
 
         case "$combined_key" in
             $'\x1b[A'|k) # Flèche haut (Esc [A) OU 'k'
-            if [[ $current_index -gt 0 ]]; then
-                current_index=$((current_index - 1))
-            fi
-            ;;
+                if [[ $current_index -gt 0 ]]; then
+                    current_index=$((current_index - 1))
+                fi
+                ;;
 
             $'\x1b[B'|j) # Flèche bas (Esc [B) OU 'j'
-            if [[ $current_index -lt $((total_count - 1)) ]]; then
-                current_index=$((current_index + 1))
-            fi
-            ;;
+                if [[ $current_index -lt $((total_count - 1)) ]]; then
+                    current_index=$((current_index + 1))
+                fi
+                ;;
 
             "") # Touche Entrée
-            if [[ $current_index -lt $pvc_count ]]; then
-                pvc="${pvc_map[$current_index]}" # Capture le PVC sélectionné
-                unmount_single "$pvc"
-            else
-                case $((current_index - pvc_count)) in
-                    0) # Mount PVC
-                        clear_terminal
-                        echo -e "${GREEN}Mount PVC Storage > Select Namespace${NC}"
-                        select_namespace
-                        if [[ -n "$namespace" ]]; then
-                            mount_pvc
-                        fi
-                        ;;
-                    1) # Exit
-                        return
-                        ;;
-                esac
-            fi
-            ;;
+                if [[ $current_index -lt $pvc_count ]]; then
+                    pvc="${pvc_map[$current_index]}" # Capture le PVC sélectionné
+                    unmount_single "$pvc"
+                else
+                    case $((current_index - pvc_count)) in
+                        0) # Mount PVC
+                            clear_terminal
+                            echo -e "${GREEN}Mount PVC Storage > Select Namespace${NC}"
+                            select_namespace
+                            if [[ -n "$namespace" ]]; then
+                                mount_pvc
+                            fi
+                            ;;
+                        1) # Exit
+                            return
+                            ;;
+                    esac
+                fi
+                ;;
 
             *)
-            log_warning "Invalid option" 'console'
-            sleep 1
-            ;;
+                log_warning "Invalid option" 'console'
+                sleep 1
+                ;;
         esac
     done
 }

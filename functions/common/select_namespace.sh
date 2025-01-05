@@ -31,7 +31,5 @@ select_namespace() {
         log_info "Found deployment '$deployment' in namespace '$namespace'"
     else
         log_warning "No deployment found in namespace '$namespace'. Deployment is empty"
-        # À toi de voir si tu retournes 1 ou pas :
-        # return 1
     fi
 }
