@@ -3,7 +3,9 @@ MODULE_DISPLAY="Show information about all CNPG databases"
 MODULE_ENTRY_POINT="show_db_info"
 
 show_db_info() {
+    clear_terminal
     namespaces=$(kubectl get secrets -A | grep -E "dbcreds|cnpg-main-urls" | awk '{print $1, $2}')
+    separator=$(printf '%*s' 120 '' | tr ' ' '-')
 
     ( printf "Application | Username | Password | Address | Port\n"
     echo "$namespaces" | while read ns secret; do
@@ -23,6 +25,7 @@ show_db_info() {
         printf "%s | %s | %s | %s | %s\n" "$app_name" "$username" "$password" "$full_address" "$port"
     done ) | column -t -s "|" | tee dbinfo.txt
 
+    echo -e "${DARK_GRAY}${separator}${NC}\n"
     focus "Press any key to continue..."
     read -n 1 -s
 }
