@@ -53,6 +53,7 @@ run_module() {
 
     log_info "Executing module '$module_name' with entry point '$entry_function'"
     $entry_function "$option" "$extra_param"
+    log_info "Module '$module_name' execution completed"
 }
 
 generate_menu() {
