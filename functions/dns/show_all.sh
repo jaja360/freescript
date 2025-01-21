@@ -1,6 +1,3 @@
-#!/bin/bash
-
-# Montre tous les DNS
 show_all() {
     log_info "User selected: Show All DNS Names"
     clear_terminal

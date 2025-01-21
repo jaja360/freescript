@@ -1,12 +1,8 @@
-#!/bin/bash
-
 source ./functions/deploy/scale_up.sh
 source ./functions/openssh/check_openssh.sh
 source ./functions/openssh/delete_openssh.sh
 source ./functions/port/stop_port_forward.sh
 source ./functions/session/session_remove.sh
-
-#!/bin/bash
 
 unmount_pvc() {
     if check_openssh; then

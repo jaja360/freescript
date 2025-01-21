@@ -1,5 +1,3 @@
-#!/bin/bash
-
 scale_down() {
     log_info "Scaling down '$deployment' in namespace '$namespace' to 0 replicas" 'console'
     if ! kubectl scale deployment "$deployment" -n "$namespace" --replicas=0 &>/dev/null; then
@@ -8,10 +6,8 @@ scale_down() {
     fi
 
     while true; do
-        local replicas
-        local available
-        replicas=$(kubectl get deployment "$deployment" -n "$namespace" -o jsonpath='{.status.replicas}' 2>/dev/null || echo "")
-        available=$(kubectl get deployment "$deployment" -n "$namespace" -o jsonpath='{.status.availableReplicas}' 2>/dev/null || echo "")
+        local replicas=$(kubectl get deployment "$deployment" -n "$namespace" -o jsonpath='{.status.replicas}' 2>/dev/null || echo "")
+        local available=$(kubectl get deployment "$deployment" -n "$namespace" -o jsonpath='{.status.availableReplicas}' 2>/dev/null || echo "")
         replicas=${replicas:-0}
         available=${available:-0}
 

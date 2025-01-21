@@ -1,5 +1,3 @@
-#!/bin/bash
-
 verbose() {
     echo
     log_info "Entered DNS verbose function with chart names: ${*:-none}"
@@ -64,10 +62,9 @@ verbose() {
         fi
 
         printf "%-${max_namespace}s %-${max_link}s %-${max_port}s %-s\n" "$namespace" "$dns_name" "$ports" "$protocol"
-    
+
     done <<< "$services"
 
     separator=$(printf '%*s' $((max_namespace + max_link + max_port + max_protocol + 10)) '' | tr ' ' '-')
-    echo -e "${DARK_GRAY}${separator}${NC}"
-    echo
+    echo -e "${DARK_GRAY}${separator}${NC}\n"
 }

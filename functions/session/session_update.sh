@@ -1,5 +1,3 @@
-#!/bin/bash
-
 # Write the mounted pvc to session file
 update_session() {
     if echo "$MOUNTED_PVCS" | jq . > /dev/null 2>&1; then

@@ -1,5 +1,3 @@
-#!/bin/bash
-
 # Fonction pour obtenir le prochain port disponible
 set_port() {
     log_info "Fetching next available port"
@@ -11,7 +9,6 @@ set_port() {
     fi
 
     port=$BASE_PORT
-
     while echo "$current_ports" | grep -wq "$port"; do
         log_info "Port $port is already in use. Checking next available port..." 'console'
         ((port++))

@@ -1,5 +1,3 @@
-#!/bin/bash
-
 MODULE_NAME="dns"
 MODULE_DISPLAY="List DNS Names"
 MODULE_ENTRY_POINT="dns_entry_point"
@@ -23,8 +21,7 @@ dns_entry_point() {
         *)
             while true; do
                 clear_terminal
-                echo -e "${GREEN}DNS Management Menu${NC}"
-                echo
+                echo -e "${GREEN}DNS Management Menu${NC}\n"
                 echo "1) Show All"
                 echo "2) From Namespace"
                 echo "3) Back"

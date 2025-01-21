@@ -1,5 +1,3 @@
-#!/bin/bash
-
 MODULE_NAME="shell"
 MODULE_DISPLAY="Open Container Shell"
 MODULE_ENTRY_POINT="shell_entry_point"
@@ -29,7 +27,7 @@ shell_entry_point() {
     if [[ -z "$pod" ]]; then
         return
     fi
-    
+
     open_shell
 }
 

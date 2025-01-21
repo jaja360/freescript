@@ -1,5 +1,3 @@
-#!/bin/bash
-
 # Load mounted PVCs from the session file
 load_mounted_pvcs() {
     if [[ -f "$SESSION_FILE" ]]; then

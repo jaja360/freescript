@@ -1,5 +1,3 @@
-#!/bin/bash
-
 # Function to list namespaces and select one
 select_namespace() {
     echo
@@ -31,7 +29,5 @@ select_namespace() {
         log_info "Found deployment '$deployment' in namespace '$namespace'"
     else
         log_warning "No deployment found in namespace '$namespace'. Deployment is empty"
-        # À toi de voir si tu retournes 1 ou pas :
-        # return 1
     fi
 }

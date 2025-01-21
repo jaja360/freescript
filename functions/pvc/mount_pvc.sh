@@ -1,5 +1,3 @@
-#!/bin/bash
-
 source ./functions/deploy/find_deployment.sh
 source ./functions/deploy/scale_down.sh
 source ./functions/openssh/check_openssh.sh
@@ -30,8 +28,7 @@ mount_pvc() {
     fi
 
     clear_terminal
-    echo -e "${GREEN}Mount PVC Storage > ${namespace} > ${pvc}${NC}"
-    echo
+    echo -e "${GREEN}Mount PVC Storage > ${namespace} > ${pvc}${NC}\n"
 
     if check_openssh; then
         log_error "Cannot proceed because an OpenSSH pod is already running in namespace '$namespace'" 'console'
@@ -48,8 +45,7 @@ mount_pvc() {
     fi
 
     if set_port && inject_yaml && deploy_openssh && session_add; then
-        if
-        remove_yaml && find_openssh; then
+        if remove_yaml && find_openssh; then
             start_port_forward
         fi
     else
@@ -58,9 +54,8 @@ mount_pvc() {
         sleep 2
         return
     fi
-    
-    echo
-    echo -e "${GREEN}Successfully mounted PVC ${BOLD}${pvc}${NC}${GREEN} in namespace ${BOLD}${namespace}${NC}${GREEN}.${NC}"
+
+    echo -e "\n${GREEN}Successfully mounted PVC ${BOLD}${pvc}${NC}${GREEN} in namespace ${BOLD}${namespace}${NC}${GREEN}.${NC}"
     log_info "Successfully mounted PVC $pvc in namespace $namespace"
     echo
     focus "Press any key to continue..."

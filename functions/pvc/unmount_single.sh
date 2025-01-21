@@ -1,5 +1,3 @@
-#!/bin/bash
-
 source ./functions/pvc/unmount_pvc.sh
 
 unmount_single() {
@@ -9,13 +7,11 @@ unmount_single() {
     fi
 
     clear_terminal
-    echo -e "${GREEN}Unmount PVC Storage > ${namespace} > ${pvc}${NC}"
-    echo
+    echo -e "${GREEN}Unmount PVC Storage > ${namespace} > ${pvc}${NC}\n"
 
     unmount_pvc
 
-    echo
-    echo -e "${GREEN}Successfully unmounted PVC ${BOLD}${pvc}${NC}${GREEN} from namespace ${BOLD}${namespace}${NC}${GREEN}.${NC}"
+    echo -e "\n${GREEN}Successfully unmounted PVC ${BOLD}${pvc}${NC}${GREEN} from namespace ${BOLD}${namespace}${NC}${GREEN}.${NC}"
     log_info "Successfully unmounted PVC $pvc from namespace $namespace"
     echo
     focus "Press any key to continue..."

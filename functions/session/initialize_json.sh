@@ -1,5 +1,3 @@
-#!/bin/bash
-
 # Fonction pour initialiser le JSON et valider les variables
 initialize_json() {
     if [[ -z "$pvc" || -z "$namespace" || -z "$port" ]]; then

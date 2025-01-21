@@ -1,5 +1,3 @@
-#!/bin/bash
-
 trap "clear" EXIT
 
 SESSION_FILE=$(realpath "./session.json")
@@ -18,69 +16,59 @@ NC='\033[0m'
 # Header template
 clear_terminal() {
     clear
-echo -e "${DARK_GRAY}   ###                                             ${WHITE}##                 ${NC}"
-echo -e "${DARK_GRAY}  ##                          ${WHITE}###                 ##             ##   ${NC}"
-echo -e "${DARK_GRAY}  ##                         ${WHITE}## ##                               ##   ${NC}"
-echo -e "${DARK_GRAY} ####   # ###   ###    ###   ${WHITE}##      ####  # ###  ###    ####   ####  ${NC}"
-echo -e "${DARK_GRAY}  ##    ###    ## ##  ## ##  ${WHITE} ###   ##     ###     ##    ## ##   ##   ${NC}"
-echo -e "${DARK_GRAY}  ##    ##     #####  #####  ${WHITE}   ##  ##     ##      ##    ## ##   ##   ${NC}"
-echo -e "${DARK_GRAY}  ##    ##     ##     ##     ${WHITE}## ##  ##     ##      ##    ## ##   ##   ${NC}"
-echo -e "${DARK_GRAY}  ##    ##      ###    ###   ${WHITE} ###    ####  ##     ####   ####     ##  ${NC}"
-echo -e "${DARK_GRAY}  #                                                      ${WHITE}##           ${NC}"
-echo -e "${DARK_GRAY}                                                         ${WHITE}##           ${NC}"
-echo
+    echo -e "${DARK_GRAY}   ###                                             ${WHITE}##                 ${NC}"
+    echo -e "${DARK_GRAY}  ##                         ${WHITE} ###                 ##             ##   ${NC}"
+    echo -e "${DARK_GRAY}  ##                         ${WHITE}## ##                               ##   ${NC}"
+    echo -e "${DARK_GRAY} ####   # ###   ###    ###   ${WHITE}##      ####  # ###  ###    ####   ####  ${NC}"
+    echo -e "${DARK_GRAY}  ##    ###    ## ##  ## ##  ${WHITE} ###   ##     ###     ##    ## ##   ##   ${NC}"
+    echo -e "${DARK_GRAY}  ##    ##     #####  #####  ${WHITE}   ##  ##     ##      ##    ## ##   ##   ${NC}"
+    echo -e "${DARK_GRAY}  ##    ##     ##     ##     ${WHITE}## ##  ##     ##      ##    ## ##   ##   ${NC}"
+    echo -e "${DARK_GRAY}  ##    ##      ###    ###   ${WHITE} ###    ####  ##     ####   ####     ##  ${NC}"
+    echo -e "${DARK_GRAY}  #                                                      ${WHITE}##           ${NC}"
+    echo -e "${DARK_GRAY}                                                         ${WHITE}##           ${NC}\n"
 }
 
-# Logging template
-log_info() {
+log_worker() {
     local timestamp=$(date +"%Y-%m-%d %H:%M:%S")
     local message="[*] $1"
     if [[ "$2" == 'console' ]]; then
-        echo -e "${DARK_GRAY}$message${NC}"
+        if [[ "$3" == 'info' ]]; then
+            echo -e "${DARK_GRAY}$message${NC}"
+        elif [[ "$3" == 'warning' ]]; then
+            echo -e "\\e[33m$message\\e[0m"
+        elif [[ "$3" == 'error' ]]; then
+            echo -e "\\e[31m$message\\e[0m"
+        fi
     fi
     echo "[$timestamp] $message" >> "$LOG_FILE"
 }
+
+log_info() {
+    log_worker "$1" "$2" "info"
+}
+
 log_warning() {
-    local timestamp=$(date +"%Y-%m-%d %H:%M:%S")
-    local message="[!] $1"
-    if [[ "$2" == 'console' ]]; then
-        echo -e "\\e[33m$message\\e[0m"
-    fi
-    echo "[$timestamp] $message" >> "$LOG_FILE"
+    log_worker "$1" "$2" "warning"
 }
+
 log_error() {
-    local timestamp=$(date +"%Y-%m-%d %H:%M:%S")
-    local message="[X] $1"
-    if [[ "$2" == 'console' ]]; then
-        echo -e "\\e[31m$message\\e[0m"
-    fi
-    echo "[$timestamp] $message" >> "$LOG_FILE"
-}
-
-
-log_temp() {
-    local timestamp=$(date +"%Y-%m-%d %H:%M:%S")
-    local message="$1"
-    local target="$2"
-
-    echo -e "[INFO] $message"
+    log_worker "$1" "$2" "error"
 }
 
 # Text effect
 focus() {
-  local text="$1"
-  for ((i=0; i<${#text}; i++)); do
-    echo -n "${text:$i:1}"
-    sleep 0.01
-  done
-  echo
+    local text="$1"
+    for ((i = 0; i < ${#text}; i++)); do
+        echo -n "${text:$i:1}"
+        sleep 0.01
+    done
+    echo
 }
 
 focus_alt() {
     local message="[*] $1"
     local target="$2"
-    echo -e "${DARK_GRAY}$message${NC}"
-    echo
+    echo -e "${DARK_GRAY}$message${NC}\n"
     sleep 1
     tput cuu1
     tput el

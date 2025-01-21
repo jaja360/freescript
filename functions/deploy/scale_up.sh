@@ -1,5 +1,3 @@
-#!/bin/bash
-
 scale_up() {
     if [[ -z "$namespace" || -z "$pvc" ]]; then
         log_error "scale_up: Namespace or PVC not specified. Aborting replica restoration." 'console'
@@ -9,7 +7,6 @@ scale_up() {
     log_info "Searching for deployment associated with PVC: '$pvc' in namespace: '$namespace'" 'console'
 
     deployment=$(kubectl get deployment -n "$namespace" -o json | jq -r ".items[] | select(.spec.template.spec.volumes[]?.persistentVolumeClaim.claimName==\"$pvc\") | .metadata.name")
-
     if [[ -n "$deployment" ]]; then
         log_info "Found deployment: '$deployment' for PVC: '$pvc'. Restoring replicas" 'console'
         if kubectl scale deployment "$deployment" -n "$namespace" --replicas=1 > /dev/null 2>&1; then

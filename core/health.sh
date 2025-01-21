@@ -1,20 +1,17 @@
-#!/bin/bash
-
 # Function to check and install jq
 healthcheck_jq() {
     if command -v jq >/dev/null 2>&1; then
-        local jq_version
-        jq_version=$(jq --version)
+        local jq_version=$(jq --version)
         log_info "jq is already installed. Version: $jq_version"
         return 0
     fi
 
     log_info "jq is not installed. Proceeding with installation..." 'console'
 
-    if command -v apt-get >/dev/null 2>&1; then
+    if command -v apt >/dev/null 2>&1; then
         log_info "Using APT to install jq..." 'console'
-        sudo apt-get update >> "$LOG_FILE" 2>&1
-        sudo apt-get install -y jq >> "$LOG_FILE" 2>&1
+        sudo apt update >> "$LOG_FILE" 2>&1
+        sudo apt install -y jq >> "$LOG_FILE" 2>&1
     elif command -v yum >/dev/null 2>&1; then
         log_info "Using YUM to install jq..." 'console'
         sudo yum install -y epel-release >> "$LOG_FILE" 2>&1
@@ -37,8 +34,7 @@ healthcheck_jq() {
     fi
 
     if command -v jq >/dev/null 2>&1; then
-        local jq_version
-        jq_version=$(jq --version)
+        local jq_version=$(jq --version)
         log_info "jq installed successfully. Version: $jq_version" 'console'
         sleep 2
         return 0

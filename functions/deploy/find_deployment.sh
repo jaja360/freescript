@@ -1,5 +1,3 @@
-#!/bin/bash
-
 # Fonction pour trouver le déploiement associé au PVC
 find_deployment() {
     deployment="$(

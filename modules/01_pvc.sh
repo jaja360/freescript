@@ -1,5 +1,3 @@
-#!/bin/bash
-
 MODULE_NAME="pvc"
 MODULE_DISPLAY="Manage PVC Storage"
 MODULE_ENTRY_POINT="pvc_entry_point"
@@ -46,11 +44,8 @@ pvc_entry_point() {
                 load_mounted_pvcs
 
                 # Récupérer les PVCs montés dans ce namespace
-                local pvc_entries
-                pvc_entries=$(echo "$MOUNTED_PVCS" | jq "[.[] | select(.namespace==\"$namespace\")]")
-                local pvc_count
-                pvc_count=$(echo "$pvc_entries" | jq length)
-
+                local pvc_entries=$(echo "$MOUNTED_PVCS" | jq "[.[] | select(.namespace==\"$namespace\")]")
+                local pvc_count=$(echo "$pvc_entries" | jq length)
                 if [[ "$pvc_count" -eq 0 ]]; then
                     log_warning "No PVCs found in namespace '$namespace'" 'console'
                     sleep 2
@@ -74,8 +69,7 @@ pvc_entry_point() {
                 ;;
             *)
                 log_warning "Unknown option: $option" 'console'
-                echo
-                echo "Usage: freescript.sh pvc [-m [namespace]] | [-u [namespace]]"
+                echo -e "\nUsage: freescript.sh pvc [-m [namespace]] | [-u [namespace]]"
                 sleep 5
                 return
                 ;;
@@ -147,22 +141,28 @@ pvc_entry_point() {
 
         # Lecture des touches
         read -rsn1 key
-        case "$key" in
-            $'\x1b') # Touche Échappement pour les flèches
-                read -rsn2 -t 0.1 key
-                case "$key" in
-                    "[A") # Flèche haut
-                        if [[ $current_index -gt 0 ]]; then
-                            current_index=$((current_index - 1))
-                        fi
-                        ;;
-                    "[B") # Flèche bas
-                        if [[ $current_index -lt $((total_count - 1)) ]]; then
-                            current_index=$((current_index + 1))
-                        fi
-                        ;;
-                esac
+
+        # Si on détecte la touche Échappement, on lit les deux caractères suivants (p. ex. "[A" ou "[B")
+        if [[ "$key" == $'\x1b' ]]; then
+            read -rsn2 -t 0.1 key2
+            combined_key="$key$key2"
+        else
+            combined_key="$key"
+        fi
+
+        case "$combined_key" in
+            $'\x1b[A'|k) # Flèche haut (Esc [A) OU 'k'
+                if [[ $current_index -gt 0 ]]; then
+                    current_index=$((current_index - 1))
+                fi
                 ;;
+
+            $'\x1b[B'|j) # Flèche bas (Esc [B) OU 'j'
+                if [[ $current_index -lt $((total_count - 1)) ]]; then
+                    current_index=$((current_index + 1))
+                fi
+                ;;
+
             "") # Touche Entrée
                 if [[ $current_index -lt $pvc_count ]]; then
                     pvc="${pvc_map[$current_index]}" # Capture le PVC sélectionné
@@ -183,6 +183,7 @@ pvc_entry_point() {
                     esac
                 fi
                 ;;
+
             *)
                 log_warning "Invalid option" 'console'
                 sleep 1

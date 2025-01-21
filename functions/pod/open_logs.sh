@@ -1,5 +1,3 @@
-#!/bin/bash
-
 open_logs() {
     # Ensure that 'namespace' and 'pod' variables are set before calling this function
     if [[ -z "$namespace" || -z "$pod" ]]; then
@@ -23,8 +21,7 @@ open_logs() {
     # Prompt the user for the number of log lines to display
     while true; do
         clear_terminal
-        echo -e "${GREEN}Container Logs > ${namespace} > ${pod}${NC}"
-        echo
+        echo -e "${GREEN}Container Logs > ${namespace} > ${pod}${NC}\n"
 
         read -p "How many log lines do you want to display? (default: 100, -1 for all): " lines
         lines=${lines:-100}  # Set default to 100 if no input is provided
@@ -43,8 +40,7 @@ open_logs() {
 
     # Inform the user how to exit the logs view
     clear_terminal
-    echo -e "${GREEN}Container Logs > ${namespace} > ${pod}${NC}"
-    echo
+    echo -e "${GREEN}Container Logs > ${namespace} > ${pod}${NC}\n"
     focus "[!] Press any key to stop displaying logs..."
     echo
 
