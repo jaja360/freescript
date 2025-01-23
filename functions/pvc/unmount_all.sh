@@ -1,4 +1,4 @@
-source ./functions/pvc/unmount_pvc.sh
+source "$BASE_DIR/functions/pvc/unmount_pvc.sh"
 
 unmount_all() {
     local pvc_list=$(echo "$MOUNTED_PVCS" | jq -c '.[]')

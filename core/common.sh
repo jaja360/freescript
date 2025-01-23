@@ -1,7 +1,7 @@
 trap "clear" EXIT
 
-SESSION_FILE=$(realpath "./session.json")
-LOG_FILE="freescript.log"
+SESSION_FILE=$(realpath "$BASE_DIR/session.json")
+LOG_FILE="$BASE_DIR/freescript.log"
 BASE_PORT=2022
 
 truncate -s 0 "$LOG_FILE"

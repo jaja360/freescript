@@ -2,10 +2,10 @@ MODULE_NAME="dns"
 MODULE_DISPLAY="List DNS Names"
 MODULE_ENTRY_POINT="dns_entry_point"
 
-source ./functions/common/select_namespace.sh
-source ./functions/dns/verbose.sh
-source ./functions/dns/show_all.sh
-source ./functions/dns/show_dns.sh
+source "$BASE_DIR/functions/common/select_namespace.sh"
+source "$BASE_DIR/functions/dns/verbose.sh"
+source "$BASE_DIR/functions/dns/show_all.sh"
+source "$BASE_DIR/functions/dns/show_dns.sh"
 
 dns_entry_point() {
     local option="$1"

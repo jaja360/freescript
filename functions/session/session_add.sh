@@ -1,5 +1,5 @@
-source ./functions/session/initialize_json.sh
-source ./functions/session/validate_json.sh
+source "$BASE_DIR/functions/session/initialize_json.sh"
+source "$BASE_DIR/functions/session/validate_json.sh"
 
 # Fonction pour ajouter une entrée
 session_add() {

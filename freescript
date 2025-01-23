@@ -1,0 +1,101 @@
+#!/bin/bash
+
+BASE_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+
+source "$BASE_DIR/core/common.sh"
+source "$BASE_DIR/core/health.sh"
+
+clear_terminal
+
+declare -A MODULES_FILES
+declare -A MODULES_ENTRYPOINTS
+declare -A MODULES_DISPLAYS
+
+scan_modules() {
+    log_info "Scanning for modules in /modules directory..."
+    if [[ ! -d "$BASE_DIR/modules/" ]]; then
+        log_error "Modules directory '/modules' not found"
+        return 1
+    fi
+    for module_path in $BASE_DIR/modules/*.sh; do
+        if [[ -f "$module_path" ]]; then
+            local name=$(grep '^MODULE_NAME=' "$module_path" | cut -d= -f2 | tr -d '"')
+            local entry=$(grep '^MODULE_ENTRY_POINT=' "$module_path" | cut -d= -f2 | tr -d '"')
+            local display=$(grep '^MODULE_DISPLAY=' "$module_path" | cut -d= -f2 | tr -d '"')
+            if [[ -z "$name" || -z "$entry" ]]; then
+                log_warning "Invalid module definition in $module_path"
+                continue
+            fi
+            MODULES_FILES["$name"]="$module_path"
+            MODULES_ENTRYPOINTS["$name"]="$entry"
+            MODULES_DISPLAYS["$name"]="${display:-$name}"
+            log_info "Found module '$name' with entry point '$entry'"
+        fi
+    done
+    log_info "${#MODULES_FILES[@]} modules discovered successfully"
+}
+
+run_module() {
+    local module_name="$1"
+    local option="$2"
+    local extra_param="$3"
+
+    local module_path="${MODULES_FILES["$module_name"]}"
+    if [[ -z "$module_path" || ! -f "$module_path" ]]; then
+        log_error "Module '$module_name' not installed"
+        exit 1
+    fi
+
+    source "$module_path"
+    local entry_function="${MODULES_ENTRYPOINTS["$module_name"]}"
+    if [[ "$(type -t "$entry_function")" != "function" ]]; then
+        log_error "Entry point '$entry_function' for module '$module_name' is not a valid function"
+        exit 1
+    fi
+
+    log_info "Executing module '$module_name' with entry point '$entry_function'"
+    $entry_function "$option" "$extra_param"
+    log_info "Module '$module_name' execution completed"
+}
+
+generate_menu() {
+    echo -e "${GREEN}Main Menu${NC}\n"
+    local i=1
+    for module_name in "${!MODULES_FILES[@]}"; do
+        echo "$i) ${MODULES_DISPLAYS["$module_name"]}"
+        menu_mapping["$i"]="$module_name"
+        ((i++))
+    done
+    echo -e "$i) Exit\n"
+}
+
+handle_selection() {
+    local choice="$1"
+    if [[ -n "${menu_mapping[$choice]}" ]]; then
+        run_module "${menu_mapping[$choice]}"
+    elif (( choice == ${#menu_mapping[@]} + 1 )); then
+        log_info "Exiting script"
+        exit 0
+    else
+        log_warning "Invalid menu choice: $choice" 'console'
+        sleep 2
+    fi
+}
+
+main_menu() {
+    while true; do
+        clear_terminal
+        generate_menu
+        read -p "Select an option: " choice
+        handle_selection "$choice"
+    done
+}
+
+scan_modules
+
+if [[ $# -ge 1 ]]; then
+    run_module "$1" "${2:-}" "${3:-}"
+    exit 0
+fi
+
+main_menu

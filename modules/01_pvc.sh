@@ -2,11 +2,11 @@ MODULE_NAME="pvc"
 MODULE_DISPLAY="Manage PVC Storage"
 MODULE_ENTRY_POINT="pvc_entry_point"
 
-source ./functions/common/select_namespace.sh
-source ./functions/pvc/load_mounted_pvcs.sh
-source ./functions/pvc/mount_pvc.sh
-source ./functions/pvc/unmount_all.sh
-source ./functions/pvc/unmount_single.sh
+source "$BASE_DIR/functions/common/select_namespace.sh"
+source "$BASE_DIR/functions/pvc/load_mounted_pvcs.sh"
+source "$BASE_DIR/functions/pvc/mount_pvc.sh"
+source "$BASE_DIR/functions/pvc/unmount_all.sh"
+source "$BASE_DIR/functions/pvc/unmount_single.sh"
 
 pvc_entry_point() {
     local option="$1"

@@ -1,4 +1,4 @@
-source ./functions/pvc/unmount_pvc.sh
+source "$BASE_DIR/functions/pvc/unmount_pvc.sh"
 
 unmount_single() {
     if [[ -z "$namespace" || -z "$pvc" ]]; then

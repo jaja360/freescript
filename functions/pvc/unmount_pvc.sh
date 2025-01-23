@@ -1,8 +1,8 @@
-source ./functions/deploy/scale_up.sh
-source ./functions/openssh/check_openssh.sh
-source ./functions/openssh/delete_openssh.sh
-source ./functions/port/stop_port_forward.sh
-source ./functions/session/session_remove.sh
+source "$BASE_DIR/functions/deploy/scale_up.sh"
+source "$BASE_DIR/functions/openssh/check_openssh.sh"
+source "$BASE_DIR/functions/openssh/delete_openssh.sh"
+source "$BASE_DIR/functions/port/stop_port_forward.sh"
+source "$BASE_DIR/functions/session/session_remove.sh"
 
 unmount_pvc() {
     if check_openssh; then

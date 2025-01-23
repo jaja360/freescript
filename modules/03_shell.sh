@@ -2,9 +2,9 @@ MODULE_NAME="shell"
 MODULE_DISPLAY="Open Container Shell"
 MODULE_ENTRY_POINT="shell_entry_point"
 
-source ./functions/common/select_namespace.sh
-source ./functions/common/select_pod.sh
-source ./functions/pod/open_shell.sh
+source "$BASE_DIR/functions/common/select_namespace.sh"
+source "$BASE_DIR/functions/common/select_pod.sh"
+source "$BASE_DIR/functions/pod/open_shell.sh"
 
 shell_entry_point() {
     local option="$1"

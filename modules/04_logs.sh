@@ -2,9 +2,9 @@ MODULE_NAME="logs"
 MODULE_DISPLAY="Show Container Logs"
 MODULE_ENTRY_POINT="logs_entry_point"
 
-source ./functions/common/select_namespace.sh
-source ./functions/common/select_pod.sh
-source ./functions/pod/open_logs.sh
+source "$BASE_DIR/functions/common/select_namespace.sh"
+source "$BASE_DIR/functions/common/select_pod.sh"
+source "$BASE_DIR/functions/pod/open_logs.sh"
 
 logs_entry_point() {
     local option="$1"

@@ -1,14 +1,14 @@
-source ./functions/deploy/find_deployment.sh
-source ./functions/deploy/scale_down.sh
-source ./functions/openssh/check_openssh.sh
-source ./functions/openssh/deploy_openssh.sh
-source ./functions/openssh/find_openssh.sh
-source ./functions/port/set_port.sh
-source ./functions/port/start_port_forward.sh
-source ./functions/pvc/select_pvc.sh
-source ./functions/session/session_add.sh
-source ./functions/yaml/inject_yaml.sh
-source ./functions/yaml/remove_yaml.sh
+source "$BASE_DIR/functions/deploy/find_deployment.sh"
+source "$BASE_DIR/functions/deploy/scale_down.sh"
+source "$BASE_DIR/functions/openssh/check_openssh.sh"
+source "$BASE_DIR/functions/openssh/deploy_openssh.sh"
+source "$BASE_DIR/functions/openssh/find_openssh.sh"
+source "$BASE_DIR/functions/port/set_port.sh"
+source "$BASE_DIR/functions/port/start_port_forward.sh"
+source "$BASE_DIR/functions/pvc/select_pvc.sh"
+source "$BASE_DIR/functions/session/session_add.sh"
+source "$BASE_DIR/functions/yaml/inject_yaml.sh"
+source "$BASE_DIR/functions/yaml/remove_yaml.sh"
 
 mount_pvc() {
     if [[ -z "$namespace" ]]; then
